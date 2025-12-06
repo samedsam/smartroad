@@ -5,6 +5,7 @@ import com.smartroad.domain.RoadSegment;
 import com.smartroad.domain.Route;
 import com.smartroad.domain.UserProfile;
 import com.smartroad.dto.OptimizationResponse;
+import com.smartroad.dto.OptimizationResult;
 import com.smartroad.service.RouteOptimizationService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -49,13 +50,18 @@ public class DemoScenarioService {
     }
 
     public OptimizationResponse optimizeScenario(String scenarioId) {
+        OptimizationResult result = optimizeScenarioResult(scenarioId, defaultDemoProfile());
+        return new OptimizationResponse("demo-user", result);
+    }
+
+    public OptimizationResult optimizeScenarioResult(String scenarioId, UserProfile profile) {
         Route baseRoute = buildBaseHighwayRoute(scenarioId);
         List<Route> candidates = buildCandidateRoutes(scenarioId);
-        UserProfile profile = defaultDemoProfile();
+        UserProfile effectiveProfile = profile != null ? profile : defaultDemoProfile();
 
         log.info("Running demo optimization for scenario {} with {} candidates", scenarioId, candidates.size());
-        OptimizationContext context = new OptimizationContext(baseRoute, candidates, profile, "demo-user");
-        return new OptimizationResponse("demo-user", optimizationService.optimize(context));
+        OptimizationContext context = new OptimizationContext(baseRoute, candidates, effectiveProfile, null);
+        return optimizationService.optimize(context);
     }
 
     private Route buildCostSaverRoute() {
