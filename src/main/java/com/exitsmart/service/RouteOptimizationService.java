@@ -1,8 +1,10 @@
 package com.exitsmart.service;
 
+import com.exitsmart.domain.DealType;
 import com.exitsmart.domain.OptimizationContext;
 import com.exitsmart.domain.Route;
 import com.exitsmart.dto.OptimizationResult;
+import com.exitsmart.dto.ScoreBreakdown;
 import com.exitsmart.dto.ScoredRoute;
 import org.springframework.stereotype.Service;
 
@@ -29,11 +31,10 @@ public class RouteOptimizationService {
         List<ScoredRoute> scoredRoutes = new ArrayList<>();
 
         for (Route route : buildRouteList(context)) {
-            double score = scoringService.scoreRoute(route, baseRoute, context.getUserProfile());
-            double tollSavings = baseRoute.getTotalTollCost() - route.getTotalTollCost();
-            double extraMinutes = route.getTotalMinutes() - baseRoute.getTotalMinutes();
-            double detourKm = route.getTotalDistanceKm() - baseRoute.getTotalDistanceKm();
-            scoredRoutes.add(new ScoredRoute(route, score, tollSavings, extraMinutes, detourKm));
+            ScoreBreakdown breakdown = scoringService.scoreRoute(route, baseRoute, context.getUserProfile());
+            DealType dealType = classifyDeal(breakdown);
+            String explanation = buildExplanation(breakdown, dealType);
+            scoredRoutes.add(new ScoredRoute(route, breakdown.getRawScore(), breakdown, dealType, explanation));
         }
 
         scoredRoutes.sort(Comparator.comparingDouble(ScoredRoute::getScore));
@@ -52,5 +53,40 @@ public class RouteOptimizationService {
         routes.add(context.getBaseHighwayRoute());
         routes.addAll(context.getCandidateRoutes());
         return routes;
+    }
+
+    private DealType classifyDeal(ScoreBreakdown breakdown) {
+        if (breakdown.getDeltaCost() > 5 && breakdown.getDeltaMinutes() <= 5 && breakdown.getComplexityPenalty() <= 2) {
+            return DealType.STRONGLY_RECOMMENDED;
+        }
+        if (breakdown.getDeltaCost() >= 1 && breakdown.getDeltaMinutes() <= 10) {
+            return DealType.RECOMMENDED;
+        }
+        if (breakdown.getDeltaMinutes() >= 20 || breakdown.getDeltaCost() < 0) {
+            return DealType.NOT_WORTH_IT;
+        }
+        return DealType.NEUTRAL;
+    }
+
+    private String buildExplanation(ScoreBreakdown breakdown, DealType dealType) {
+        String savingsPart = String.format("€%.2f savings vs highway", breakdown.getDeltaCost());
+        String timePart = String.format("%s%.1f min", breakdown.getDeltaMinutes() >= 0 ? "+" : "", breakdown.getDeltaMinutes());
+        String detourPart = String.format("%s%.1f km", breakdown.getDetourKm() >= 0 ? "+" : "", breakdown.getDetourKm());
+        String dealPart;
+        switch (dealType) {
+            case STRONGLY_RECOMMENDED:
+                dealPart = "Great tradeoff: strong savings for minor delays and low complexity.";
+                break;
+            case RECOMMENDED:
+                dealPart = "Good balance of savings and travel time.";
+                break;
+            case NOT_WORTH_IT:
+                dealPart = "Not attractive due to extra time or higher cost.";
+                break;
+            default:
+                dealPart = "Marginal improvement; consider driver preference.";
+                break;
+        }
+        return String.format("%s, time impact %s, detour %s. %s", savingsPart, timePart, detourPart, dealPart);
     }
 }
