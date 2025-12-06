@@ -1,4 +1,4 @@
-# ExitSmart
+# SmartRoad
 
 Prototype Spring Boot (Java 17) pour optimiser les trajets autoroutiers en combinant tronçons d'autoroute et nationales afin de réduire le coût des péages sans trop rallonger le temps de parcours.
 

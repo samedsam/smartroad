@@ -10,10 +10,10 @@
         <relativePath/>
     </parent>
 
-    <groupId>com.exitsmart</groupId>
-    <artifactId>exitsmart</artifactId>
+    <groupId>com.smartroad</groupId>
+    <artifactId>smartroad</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>ExitSmart</name>
+    <name>SmartRoad</name>
     <description>Prototype d'optimisation de trajets autoroutiers</description>
 
     <properties>
