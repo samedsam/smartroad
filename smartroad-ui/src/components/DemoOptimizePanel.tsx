@@ -1,6 +1,5 @@
 import { useState } from 'react';
-
-const backendUrl = 'http://localhost:8080';
+import { backendUrl } from '../config/api';
 
 interface DemoResponse {
   baseCost?: number;
