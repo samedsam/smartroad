@@ -10,4 +10,4 @@ npm install
 npm run dev
 ```
 
-By default the app expects the backend at `http://localhost:8080`.
+Configure the backend target via `VITE_API_BASE_URL` (defaults to `http://localhost:8080`). When running with Docker Compose, the environment variable is set to `http://smartroad-backend:8080` so the UI can call the API container.

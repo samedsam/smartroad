@@ -65,6 +65,16 @@ mvn spring-boot:run
 
 If your environment blocks Maven Central (e.g., HTTP 403), dependency resolution may fail; on a standard workstation Maven will fetch dependencies normally.
 
+### Run with Docker Compose (backend + frontend)
+```bash
+docker-compose up --build
+```
+
+- Backend API: http://localhost:8080
+- Frontend playground: http://localhost:3000
+
+The frontend communicates with the backend using the `VITE_API_BASE_URL` environment variable (set to `http://smartroad-backend:8080` in `docker-compose.yml`).
+
 ## API overview
 | Endpoint                       | Method | Description                                   |
 |--------------------------------|--------|-----------------------------------------------|
