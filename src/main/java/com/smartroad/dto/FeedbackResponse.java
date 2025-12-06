@@ -1,10 +1,15 @@
 package com.smartroad.dto;
 
 import com.smartroad.domain.UserProfile;
+import io.swagger.v3.oas.annotations.media.Schema;
 
+@Schema(description = "Result of processing user feedback, including any updated user preferences.")
 public class FeedbackResponse {
 
+    @Schema(description = "User profile after feedback was applied.")
     private UserProfile updatedUserProfile;
+
+    @Schema(description = "Status message summarizing the feedback outcome.", example = "Feedback applied")
     private String message;
 
     public FeedbackResponse() {

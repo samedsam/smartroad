@@ -1,8 +1,14 @@
 package com.smartroad.dto;
 
+import io.swagger.v3.oas.annotations.media.Schema;
+
+@Schema(description = "Input parameters for simulating a single demo scenario.")
 public class SimulationScenarioInput {
 
+    @Schema(description = "Identifier of the demo scenario to run.", example = "paris-lyon-daily")
     private String scenarioId;
+
+    @Schema(description = "Expected number of trips per year for this scenario.", example = "24")
     private int tripsPerYear;
 
     public SimulationScenarioInput() {
