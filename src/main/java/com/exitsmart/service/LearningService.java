@@ -34,6 +34,10 @@ public class LearningService {
 
     public UserProfile applyFeedback(UserProfile profile, RouteSummaryDto baseRoute, RouteSummaryDto proposedRoute,
                                      UserReaction reaction) {
+        if (baseRoute == null || proposedRoute == null || reaction == null) {
+            return copy(profile);
+        }
+
         UserProfile updated = copy(profile);
         double timeDelta = proposedRoute.getTotalMinutes() - baseRoute.getTotalMinutes();
         double tollDelta = proposedRoute.getTotalTollCost() - baseRoute.getTotalTollCost();

@@ -49,4 +49,19 @@ public class LearningServiceTest {
         assertThat(updated.getMaxDetourKm()).isLessThan(profile.getMaxDetourKm());
         assertThat(updated.getMaxExtraMinutes()).isLessThan(profile.getMaxExtraMinutes());
     }
+
+    @Test
+    void nullRouteSummariesReturnCopiedProfileWithoutCrashing() {
+        UserProfile profile = new UserProfile(18.0, 20, 15.0, 0.5, true, 1.0);
+
+        UserProfile updated = learningService.applyFeedback(profile, null, null, UserReaction.ACCEPTED);
+
+        assertThat(updated).isNotSameAs(profile);
+        assertThat(updated.getValueOfTimeEuroPerHour()).isEqualTo(profile.getValueOfTimeEuroPerHour());
+        assertThat(updated.getMaxExtraMinutes()).isEqualTo(profile.getMaxExtraMinutes());
+        assertThat(updated.getMaxDetourKm()).isEqualTo(profile.getMaxDetourKm());
+        assertThat(updated.getComplexityFactor()).isEqualTo(profile.getComplexityFactor());
+        assertThat(updated.isPreferHighways()).isEqualTo(profile.isPreferHighways());
+        assertThat(updated.getTollSensitivity()).isEqualTo(profile.getTollSensitivity());
+    }
 }

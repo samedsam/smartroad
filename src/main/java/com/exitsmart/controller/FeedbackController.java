@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.http.HttpStatus;
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/feedback")
@@ -24,7 +25,7 @@ public class FeedbackController {
     }
 
     @PostMapping
-    public ResponseEntity<FeedbackResponse> submitFeedback(@RequestBody FeedbackRequest request) {
+    public ResponseEntity<FeedbackResponse> submitFeedback(@Valid @RequestBody FeedbackRequest request) {
         UserReaction reaction = parseReaction(request.getReaction());
         UserProfile updatedProfile = learningService.applyFeedback(request.getUserProfile(), request.getBaseRoute(),
                 request.getProposedRoute(), reaction);
