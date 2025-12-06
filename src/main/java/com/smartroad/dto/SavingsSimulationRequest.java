@@ -1,13 +1,20 @@
 package com.smartroad.dto;
 
 import com.smartroad.domain.UserProfile;
+import io.swagger.v3.oas.annotations.media.Schema;
 
 import java.util.List;
 
+@Schema(description = "Input payload for running savings simulations across demo scenarios.")
 public class SavingsSimulationRequest {
 
+    @Schema(description = "List of scenarios to simulate with expected yearly trip counts.", requiredMode = Schema.RequiredMode.REQUIRED)
     private List<SimulationScenarioInput> scenarios;
+
+    @Schema(description = "Optional user profile used to personalize ROI analysis.")
     private UserProfile userProfile;
+
+    @Schema(description = "Subscription price per year to evaluate ROI against.", example = "59.99")
     private Double subscriptionPricePerYear;
 
     public SavingsSimulationRequest() {

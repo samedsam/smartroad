@@ -1,16 +1,34 @@
 package com.smartroad.dto;
 
+import io.swagger.v3.oas.annotations.media.Schema;
+
 import java.util.List;
 
+@Schema(description = "Aggregated simulation results summarizing savings, time impact, and ROI.")
 public class SavingsSimulationResponse {
 
+    @Schema(description = "Results for each simulated scenario.")
     private List<ScenarioSimulationResult> scenarioResults;
+
+    @Schema(description = "Total estimated yearly savings across all scenarios.", example = "120.5")
     private double totalYearlySavings;
+
+    @Schema(description = "Total additional time across all scenarios in minutes.", example = "45")
     private double totalYearlyExtraMinutes;
+
+    @Schema(description = "Subscription price used for ROI calculations.", example = "59.99")
     private Double subscriptionPricePerYear;
+
+    @Schema(description = "Net yearly gain after subtracting the subscription price.", example = "60.51")
     private Double netGainAfterSubscription;
+
+    @Schema(description = "Return on investment percentage.", example = "101.7")
     private Double roiPercentage;
+
+    @Schema(description = "Categorized ROI label (e.g., HIGH, MEDIUM, LOW).", example = "HIGH")
     private String roiCategory;
+
+    @Schema(description = "Narrative explanation of the ROI result.")
     private String roiExplanation;
 
     public SavingsSimulationResponse() {

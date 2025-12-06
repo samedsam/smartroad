@@ -2,13 +2,24 @@ package com.smartroad.dto;
 
 import com.smartroad.domain.Route;
 import com.smartroad.domain.DealType;
+import io.swagger.v3.oas.annotations.media.Schema;
 
+@Schema(description = "A route annotated with scoring and deal classification information.")
 public class ScoredRoute {
 
+    @Schema(description = "Route geometry and metadata.")
     private Route route;
+
+    @Schema(description = "Final score assigned to the route.", example = "82.5")
     private double score;
+
+    @Schema(description = "Detailed scoring components contributing to the final score.")
     private ScoreBreakdown breakdown;
+
+    @Schema(description = "Deal classification for the route.")
     private DealType dealType;
+
+    @Schema(description = "Human-friendly explanation of the score.")
     private String explanation;
 
     public ScoredRoute() {

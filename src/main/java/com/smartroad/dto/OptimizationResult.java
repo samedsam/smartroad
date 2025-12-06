@@ -1,13 +1,20 @@
 package com.smartroad.dto;
 
 import com.smartroad.domain.UserProfile;
+import io.swagger.v3.oas.annotations.media.Schema;
 
 import java.util.List;
 
+@Schema(description = "Result of a route optimization request, including ranked routes and updated profile.")
 public class OptimizationResult {
 
+    @Schema(description = "The top-ranked route chosen for the user.")
     private ScoredRoute bestRoute;
+
+    @Schema(description = "All candidate routes ranked by score.")
     private List<ScoredRoute> rankedRoutes;
+
+    @Schema(description = "User profile after applying learning from this optimization.")
     private UserProfile updatedProfile;
 
     public OptimizationResult() {

@@ -1,12 +1,21 @@
 package com.smartroad.dto;
 
 import com.smartroad.domain.UserProfile;
+import io.swagger.v3.oas.annotations.media.Schema;
 
+@Schema(description = "User feedback comparing a base route and a proposed alternative.")
 public class FeedbackRequest {
 
+    @Schema(description = "User profile context when the feedback was given.")
     private UserProfile userProfile;
+
+    @Schema(description = "Summary of the original route followed by the user.")
     private RouteSummaryDto baseRoute;
+
+    @Schema(description = "Summary of the optimized or proposed route.")
     private RouteSummaryDto proposedRoute;
+
+    @Schema(description = "User reaction to the proposal (e.g., LIKE, DISLIKE, COMMENT).", example = "LIKE")
     private String reaction;
 
     public FeedbackRequest() {
