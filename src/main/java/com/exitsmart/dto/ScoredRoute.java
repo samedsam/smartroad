@@ -1,25 +1,25 @@
 package com.exitsmart.dto;
 
 import com.exitsmart.domain.Route;
+import com.exitsmart.domain.DealType;
 
 public class ScoredRoute {
 
     private Route route;
     private double score;
-    private double tollSavingsComparedToBase;
-    private double extraMinutesComparedToBase;
-    private double detourKmComparedToBase;
+    private ScoreBreakdown breakdown;
+    private DealType dealType;
+    private String explanation;
 
     public ScoredRoute() {
     }
 
-    public ScoredRoute(Route route, double score, double tollSavingsComparedToBase, double extraMinutesComparedToBase,
-                       double detourKmComparedToBase) {
+    public ScoredRoute(Route route, double score, ScoreBreakdown breakdown, DealType dealType, String explanation) {
         this.route = route;
         this.score = score;
-        this.tollSavingsComparedToBase = tollSavingsComparedToBase;
-        this.extraMinutesComparedToBase = extraMinutesComparedToBase;
-        this.detourKmComparedToBase = detourKmComparedToBase;
+        this.breakdown = breakdown;
+        this.dealType = dealType;
+        this.explanation = explanation;
     }
 
     public Route getRoute() {
@@ -38,27 +38,27 @@ public class ScoredRoute {
         this.score = score;
     }
 
-    public double getTollSavingsComparedToBase() {
-        return tollSavingsComparedToBase;
+    public ScoreBreakdown getBreakdown() {
+        return breakdown;
     }
 
-    public void setTollSavingsComparedToBase(double tollSavingsComparedToBase) {
-        this.tollSavingsComparedToBase = tollSavingsComparedToBase;
+    public void setBreakdown(ScoreBreakdown breakdown) {
+        this.breakdown = breakdown;
     }
 
-    public double getExtraMinutesComparedToBase() {
-        return extraMinutesComparedToBase;
+    public DealType getDealType() {
+        return dealType;
     }
 
-    public void setExtraMinutesComparedToBase(double extraMinutesComparedToBase) {
-        this.extraMinutesComparedToBase = extraMinutesComparedToBase;
+    public void setDealType(DealType dealType) {
+        this.dealType = dealType;
     }
 
-    public double getDetourKmComparedToBase() {
-        return detourKmComparedToBase;
+    public String getExplanation() {
+        return explanation;
     }
 
-    public void setDetourKmComparedToBase(double detourKmComparedToBase) {
-        this.detourKmComparedToBase = detourKmComparedToBase;
+    public void setExplanation(String explanation) {
+        this.explanation = explanation;
     }
 }
