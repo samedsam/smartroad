@@ -10,10 +10,10 @@
         <relativePath/>
     </parent>
 
-    <groupId>com.smartroad</groupId>
-    <artifactId>smartroad</artifactId>
+    <groupId>com.exitsmart</groupId>
+    <artifactId>exitsmart</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>SmartRoad</name>
+    <name>ExitSmart</name>
     <description>Prototype d'optimisation de trajets autoroutiers</description>
 
     <properties>
@@ -28,11 +28,6 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-validation</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springdoc</groupId>
-            <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
-            <version>2.5.0</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
